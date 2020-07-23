@@ -18,15 +18,16 @@ Mia Bootcamp staff
 also my tuttor Jason Robinson
 
 psedocode
-*we present to the user the instructions, a start button and high score button
+
+* we present to the user the instructions, a start button and high score button
 * we gonna have a start button that we click.
 * when click the button a 60s timmer start counting down.
 * we also append to the dom the first question to the user. 
-*we also append to the dom our answers
+* we also append to the dom our answers
 * if the user gets the answers right
 *      then we remove the current question and answers
 *      and we append the next question and answers
-* else if the user answers wrong 
+*else if the user answers wrong 
 *      we substract 5 senconds from timer
 *      then we remove the current question and answers
 *      and we append the next question and answers
