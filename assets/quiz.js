@@ -54,7 +54,7 @@ highScore.setAttribute("style", "margin:auto; padding: 15px 32px; display: displ
 clockElement.setAttribute("style", "padding-top: 12px; margin:auto; width:20%; text-align:center;");
 userClock.setAttribute("style", "border: 3px solid gray; padding: 15px 32px; display: display: inline-block; text-align:center;background-color: #2FBEA6; ")
 
-userScore.innerText = [];
+userScore.innerText = 0;
 var currentTime = 30;
 
 startButton.addEventListener("click", function () {
@@ -98,11 +98,11 @@ startButton.addEventListener("click", function () {
                 var userChoice = event.target.innerText;
                 if (userChoice === questions[1].answer) {
                     alert("buaja")
-                    currentTime = 11
-                    userScore.innerText = userScore + 10
+                    currentTime = 0
+                    userScore.innerText =+ 10
                 }
                 else {
-                    userScore.innerText =(userScore - 10)
+                    userScore.innerText =- 10
                 }
 
 
@@ -133,10 +133,10 @@ startButton.addEventListener("click", function () {
                 if (userChoice === questions[1].answer) {
                     alert("buaja")
                     currentTime = 11
-                    userScore.innerText = userScore + 10
+                    userScore.innerText =+ 10
                 }
                 else {
-                    userScore.innerText = userScore - 10
+                    userScore.innerText =- 10
                 }
 
 
@@ -164,13 +164,13 @@ startButton.addEventListener("click", function () {
                 alert(event.target.innerText)
                 console.log(event.target.innerText)
                 var userChoice = event.target.innerText;
-                if (userChoice === questions[1].answer) {
+                if (userChoice === questions[0].answer) {
                     alert("buaja")
-                    currentTime = 11
-                    userScore.innerText = userScore + 10
+                    currentTime = 21
+                    userScore.innerText =+ 10
                 }
                 else {
-                    userScore.innerText =(userScore - 10)
+                    userScore.innerText =- 10
                 }
 
 
