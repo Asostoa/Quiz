@@ -38,7 +38,7 @@ else if the user answers wrong
       we append the high score button
  
 ##Pictures
-[Home Screenshoot](.\assets\image(2).png)
+[](.\assets\image(2).png)
       
  
 ##Author
