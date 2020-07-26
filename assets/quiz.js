@@ -1,10 +1,9 @@
 
-
-
 // Set the body to a variable
 var body = document.body;
 
 // Create all necessary elements
+// var container = document.getElementsByid("container")
 var container = document.createElement("div")
 var h1El = document.createElement("h1");
 var h2Div = document.createElement("div")
@@ -53,141 +52,56 @@ startButton.setAttribute("style", "margin:auto; padding: 15px 32px; width:25%; t
 highScore.setAttribute("style", "margin:auto; padding: 15px 32px; display: display: inline-block; text-align:center;background-color: #2FBEA6;");
 clockElement.setAttribute("style", "padding-top: 12px; margin:auto; width:20%; text-align:center;");
 userClock.setAttribute("style", "border: 3px solid gray; padding: 15px 32px; display: display: inline-block; text-align:center;background-color: #2FBEA6; ")
+userScore.setAttribute("style", "border: 3px solid gray; padding: 15px 32px; display: display: inline-block; text-align:center;background-color: #2FBEA6; ")
 
-userScore.innerText = 0;
-var currentTime = 30;
+var currentScore=0
+var currentQuestion = 0;
+var secondsLeft = 30;
+var questionContainer = h2El
+userScore.innerText="Your Score is: "+currentScore
 
-startButton.addEventListener("click", function () {
 
-    var mainInterval = setInterval(function () {
-        optioDiv.appendChild(optionsList);
-        optionsList.appendChild(option1);
-        optionsList.appendChild(option2);
-        optionsList.appendChild(option3);
-        clockElement.appendChild(userScore)
-        currentTime--
-        userClock.innerText = currentTime;
-        if (currentTime === 0) {
+questionContainer.addEventListener("click", function (event) {
+    if (event.target.matches("li")) {
+        var answer = event.target.innerText;
 
-            currentTime = 0;
+        var question = questions[currentQuestion];
 
-            h2El.innerText = "";
-            optionsList.innerText="";
-            buttonDiv.innerText = "";
-            container.appendChild(h2El);
-            h2El.innerText = "I'm sorry you loose";
-            clearInterval(mainInterval)
+        if (answer === question.answer) {
+            currentScore++;
+            alert("correct")
+        } else {
+            secondsLeft = secondsLeft - 5;
+            alert("incorrect")
         }
-        if (currentTime === 10) {
-
-        
-            h2Div.innerText = "";
-            buttonDiv.innerText = "";
-            h2Div.appendChild(h2El);
-            h2El.innerText = questions[2].question;
-            h2Div.appendChild(optionsList)
-            optionsList.appendChild(option1)
-            optionsList.appendChild(option2)
-            optionsList.appendChild(option3)
-            option1.innerText = questions[2].options["0"];
-            option2.innerText = questions[2].options["1"];
-            option3.innerText = questions[2].options["2"];
-            optionsList.addEventListener("click", function (event) {
-                alert(event.target.innerText)
-                console.log(event.target.innerText)
-                var userChoice = event.target.innerText;
-                if (userChoice === questions[1].answer) {
-                    alert("buaja")
-                    currentTime = 0
-                    userScore.innerText =+ 10
-                }
-                else {
-                    userScore.innerText =- 10
-                }
-
-
-            })
-
-
-
+        currentQuestion++;
+        if (currentQuestion>=questions.lenght) {
+            
+            finishQuiz();
+        } else {
+            showCurrentQuestion();
         }
-
-        if (currentTime === 20) {
-
-            currentTime = 20;
-            h2El.innerText = "";
-            buttonDiv.innerText = "";
-            container.appendChild(h2El);
-            h2Div.innerText = questions[1].question;
-            h2Div.appendChild(optionsList)
-            optionsList.appendChild(option1)
-            optionsList.appendChild(option2)
-            optionsList.appendChild(option3)
-            option1.innerText = questions[1].options["0"];
-            option2.innerText = questions[1].options["1"];
-            option3.innerText = questions[1].options["2"];
-            optionsList.addEventListener("click", function (event) {
-                alert(event.target.innerText)
-                console.log(event.target.innerText)
-                var userChoice = event.target.innerText;
-                if (userChoice === questions[1].answer) {
-                    alert("buaja")
-                    currentTime = 11
-                    userScore.innerText =+ 10
-                }
-                else {
-                    userScore.innerText =- 10
-                }
+    }
+});
 
 
+function showCurrentQuestion() {
+    var question = questions[currentQuestion];
+    questionContainer.innerHTML = "";
 
+    var questionTitle = document.createElement("h2")
+    questionTitle.innerText = question.question;
+    questionContainer.appendChild(questionTitle);
 
-            })
+    var userOptions = document.createElement("ul");
 
-
-
-        }
-        if (currentTime === 29) {
-
-            clock = 29;
-            h2El.innerText = "";
-            buttonDiv.innerText = "";
-            container.appendChild(h2El);
-            h2Div.innerText = questions[0].question;
-            optionsList.appendChild(option1)
-            optionsList.appendChild(option2)
-            optionsList.appendChild(option3)
-            option1.innerText = questions[0].options["0"];
-            option2.innerText = questions[0].options["1"];
-            option3.innerText = questions[0].options["2"];
-            optionsList.addEventListener("click", function (event) {
-                alert(event.target.innerText)
-                console.log(event.target.innerText)
-                var userChoice = event.target.innerText;
-                if (userChoice === questions[0].answer) {
-                    alert("buaja")
-                    currentTime = 21
-                    userScore.innerText =+ 10
-                }
-                else {
-                    userScore.innerText =- 10
-                }
-
-
-
-            })
-
-
-        }
-
-
-
-
-
-    }, 1000);
-    return
-
-})
+    for (i = 0; i < question.options.length; i++) {
+        var questionLi = document.createElement("li");
+        questionLi.innerText = question.options[i];
+        userOptions.appendChild(questionLi);
+    }
+    questionContainer.appendChild(userOptions);
+}
 
 
 
@@ -209,3 +123,31 @@ var questions = [{
 }
 ]
 
+
+function starTimer() {
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        userClock.innerText = `Time: ${secondsLeft}`;
+       
+
+
+    }, 1000);
+
+}
+
+
+function startQuiz() {
+    h2Div.innerHTML = "";
+    showCurrentQuestion();
+    starTimer();
+    if (userClock<=0) {
+        finishQuiz();
+    }
+}
+
+function finishQuiz() {
+    clearInterval(timerInterval);
+    
+}
+
+startButton.addEventListener("click", startQuiz)
