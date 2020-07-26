@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> d2f00c8b60656f48079c32da4d16f816b21df806
 Web Developer Quiz
  
 Homework #4
@@ -18,6 +22,7 @@ also my tutor Jason Robinson
  
 pseudocode
  
+<<<<<<< HEAD
  //we present to the user the instructions, a start button and high score button
  //we gonna have a start button that we click.
  //when click the button a 60s timmer start counting down.
@@ -34,6 +39,24 @@ pseudocode
       the game is over,
      we check for past highscore in local storage
       if is exist 
+=======
+ *we present to the user the instructions, a start button and high score button
+ *we are gonna have a start button that we click.
+ *when clicking the button a 60s timer starts counting down.
+ *we also append to the dom the first question to the user. 
+ *we also append to the dom our answers
+ *if the user gets the answers right
+      then we remove the current question and answers
+     and we append the next question and answers
+*else if the user answers wrong 
+      we subtract 5 seconds from timer
+      then we remove the current question and answers
+      and we append the next question and answers
+ *if the timer is equal to 0
+      the game is over,
+ *we check for past highscore in local storage
+  if is exist 
+>>>>>>> d2f00c8b60656f48079c32da4d16f816b21df806
               then compare the user score with the high score save in our local storage
       else then save the users score as highScore
       we append the high score button
