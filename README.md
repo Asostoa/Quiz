@@ -38,7 +38,7 @@ else if the user answers wrong
       we append the high score button
  
 ##Pictures
-[](.\assets\image(2).png)
+[https://github.com/Asostoa/quiz/blob/master/assets/image(2).png?raw=true)]
       
  
 ##Author
