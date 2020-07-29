@@ -54,30 +54,33 @@ clockElement.setAttribute("style", "padding-top: 12px; margin:auto; width:20%; t
 userClock.setAttribute("style", "border: 3px solid gray; padding: 15px 32px; display: display: inline-block; text-align:center;background-color: #2FBEA6; ")
 userScore.setAttribute("style", "border: 3px solid gray; padding: 15px 32px; display: display: inline-block; text-align:center;background-color: #2FBEA6; ")
 
-var currentScore=0
+var currentScore = 0
+var finishScore = 0
 var currentQuestion = 0;
 var secondsLeft = 30;
 var questionContainer = h2El
-userScore.innerText="Your Score is: "+currentScore
+userScore.innerHTML= "Your Score is: " + currentScore
 
 
 questionContainer.addEventListener("click", function (event) {
-    if (event.target.matches("li")) {
+    if(event.target.matches("li")) {
         var answer = event.target.innerText;
-
         var question = questions[currentQuestion];
 
         if (answer === question.answer) {
             currentScore++;
+            console.log(currentScore)
+            finishScore = currentScore
             alert("correct")
+          
         } else {
-            secondsLeft = secondsLeft - 5;
+            secondsLeft = secondsLeft-5;
+            
             alert("incorrect")
         }
         currentQuestion++;
-        if (currentQuestion>=questions.lenght) {
-            
-            finishQuiz();
+        if (currentQuestion>=questions.length) {
+            secondsLeft = 0;
         } else {
             showCurrentQuestion();
         }
@@ -92,10 +95,9 @@ function showCurrentQuestion() {
     var questionTitle = document.createElement("h2")
     questionTitle.innerText = question.question;
     questionContainer.appendChild(questionTitle);
-
     var userOptions = document.createElement("ul");
-
-    for (i = 0; i < question.options.length; i++) {
+    
+    for (i = 0;i<question.options.length; i++) {
         var questionLi = document.createElement("li");
         questionLi.innerText = question.options[i];
         userOptions.appendChild(questionLi);
@@ -122,32 +124,30 @@ var questions = [{
     answer: "<bg>yellow</bg>;"
 }
 ]
-
-
-function starTimer() {
-    var timerInterval = setInterval(function () {
-        secondsLeft--;
-        userClock.innerText = `Time: ${secondsLeft}`;
-       
-
-
-    }, 1000);
-
-}
-
-
 function startQuiz() {
     h2Div.innerHTML = "";
     showCurrentQuestion();
-    starTimer();
-    if (userClock<=0) {
-        finishQuiz();
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        userClock.innerText = `Time: ${secondsLeft}`;
+    }, 1000);
+    if(secondsLeft <= 0){
+        console.log(finishScore, "this is finish score number")
+        // finishQuiz();
     }
-}
+
+};
+
 
 function finishQuiz() {
-    clearInterval(timerInterval);
+    questionContainer.innerHTML = "";
+    var finalScore = document.createElement("h2")
     
+    finalScore.innerText = "Your Score is: " + finishScore
+    clearInterval(timerInterval);
+
 }
 
 startButton.addEventListener("click", startQuiz)
+
+//create a function timer checker
